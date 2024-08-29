@@ -1,15 +1,16 @@
 import './App.css'
-import CreateAccount from './components/createAccount/CreateAccount'
-import LoginForm from './components/login/LoginForm'
+import { RouterProvider } from 'react-router-dom';
+import router from './router/router';
+import CreateAccount from './components/createAccount/CreateAccount';
+
 
 function App() {
 
   return (
-    <>
-      <CreateAccount />
-      <br></br>
-      <LoginForm />
-    </>
+    <main>
+      <h1>Quiztopia</h1>
+      <RouterProvider router={router} />
+    </main>
   )
 }
 

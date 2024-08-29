@@ -1,4 +1,7 @@
-import { useState } from "react"
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import React from "react";
+
 
 interface UserData {
     username: string;
@@ -7,11 +10,14 @@ interface UserData {
 
 function CreateAccount() {
 
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');//<string>
+    const [username, setUsername] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+
 
     const SubmitForm = async (event: React.FormEvent) => {
         event.preventDefault();
+
+        const navigate = useNavigate();
 
         const userData: UserData = { username, password };
         try {
@@ -23,14 +29,16 @@ function CreateAccount() {
                 body: JSON.stringify(userData)
             });
             if (!response.ok) {
-                console.error ('Error in response');
+                console.error('Error in response');
                 return;
             }
             const data = await response.json();
             console.log('Account created', data);
+             navigate('/login');
         } catch (error) {
             console.error(error);
         }
+    
     }
     return (
         <div>
