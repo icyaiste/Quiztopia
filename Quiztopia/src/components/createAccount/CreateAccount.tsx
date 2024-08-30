@@ -12,12 +12,10 @@ function CreateAccount() {
 
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
-
+    const navigate = useNavigate();
 
     const SubmitForm = async (event: React.FormEvent) => {
         event.preventDefault();
-
-        const navigate = useNavigate();
 
         const userData: UserData = { username, password };
         try {
@@ -34,11 +32,11 @@ function CreateAccount() {
             }
             const data = await response.json();
             console.log('Account created', data);
-             navigate('/login');
+            navigate('/login');
         } catch (error) {
             console.error(error);
         }
-    
+
     }
     return (
         <div>
@@ -61,6 +59,7 @@ function CreateAccount() {
                 </label>
                 <button type="submit">Create Account</button>
             </form>
+            <button type='button' onClick={() => navigate('/login')}>Or press here to login if you already have an account</button>
         </div>
     )
 }

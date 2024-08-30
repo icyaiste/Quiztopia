@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface User {
     username: string;
@@ -7,15 +8,16 @@ interface User {
 }
 
 function LoginForm() {
-    const [username, setUsername] = useState(''); //<string> efter useState
-    const [password, setPassword] = useState(''); //<string> efter useState
+    const [username, setUsername] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+    const navigate = useNavigate();
 
 
     const SubmitLogin = async (event: React.FormEvent) => {
         event.preventDefault();
 
-        const user: User = { username, password };
 
+        const user: User = { username, password };
         try {
             const response = await fetch('https://fk7zu3f4gj.execute-api.eu-north-1.amazonaws.com/auth/login', {
                 method: 'POST',
@@ -32,6 +34,7 @@ function LoginForm() {
             const data = await response.json();
             console.log('Login successful', data);
             sessionStorage.setItem('token', data.token);
+            navigate('/createquiz');
         }
         catch (error) {
             console.error(error);
