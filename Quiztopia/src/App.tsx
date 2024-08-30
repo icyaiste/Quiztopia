@@ -1,7 +1,7 @@
 import './App.css'
 import { RouterProvider } from 'react-router-dom';
 import router from './router/router';
-import CreateAccount from './components/createAccount/CreateAccount';
+import CreateAccount from './pages/createAccount/CreateAccount';
 
 
 function App() {

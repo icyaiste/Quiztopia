@@ -1,7 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom';
-import CreateAccount from '../components/createAccount/CreateAccount';
-import LoginForm from '../components/login/LoginForm';
-import CreateQuiz from '../components/createQuiz/CreateQuiz';
+import CreateAccount from '../pages/createAccount/CreateAccount';
+import LoginForm from '../pages/login/LoginForm';
+import CreateQuiz from '../pages/createQuiz/CreateQuiz';
+import AddQuestions from '../pages/addQuestions/AddQuestions';
 
 const router = createBrowserRouter([
     {
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
     {
         path: '/createquiz',
         element: <CreateQuiz/>
+    },
+    {
+        path: '/addquestions',
+        element: <AddQuestions/>
     }
 ]);
 

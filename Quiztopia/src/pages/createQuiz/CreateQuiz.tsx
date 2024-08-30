@@ -29,6 +29,7 @@ function CreateQuiz() {
                 body: JSON.stringify(requestBody)
             });
             const data = await response.json();
+            navigate('/addquestions');// Redirect to add questions page after successful quiz creation
 
             if (response.ok) {
                 if (data.success) {
