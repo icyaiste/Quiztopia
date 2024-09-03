@@ -2,8 +2,17 @@ import { useState, useEffect } from 'react';
 import Leaflet from '../../components/map/Leaflet';
 
 
-function AddQuestions() {
-    const [position, setPosition] = useState<GeolocationCoordinates>();
+interface Position {
+    latitude: number;
+    longitude: number;
+}
+
+interface AddQuestionsProps {
+    quizName: string;
+}
+
+function AddQuestions({quizName}: AddQuestionsProps) {
+    const [position, setPosition] = useState<Position | undefined>();
     const [question, setQuestion] = useState<string>('');
     const [answer, setAnswer] = useState<string>('');
 
@@ -11,7 +20,10 @@ function AddQuestions() {
     useEffect(() => {
         if ('geolocation' in navigator && !position) {
             navigator.geolocation.getCurrentPosition((position) => {
-                setPosition(position.coords);
+                setPosition({
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude
+                });
             });
         }
     }, [position]);
@@ -24,28 +36,38 @@ function AddQuestions() {
             return;
         }
 
+        const token = sessionStorage.getItem('token');
+        if (!token) {
+            console.log('No token found in sessionStorage');
+            return;
+        }
+
+        console.log('Token:', token); // Debugging line to check token
+
         const questionBody = {
-            name: "test quiz", // Replace with dynamic quiz name later
+            name:quizName,
             question: question,
             answer: answer,
             location: {
-                longitude: position.longitude.toString(),
-                latitude: position.latitude.toString()
+                longitude: position.longitude,
+                latitude: position.latitude
             }
         };
+        console.log('Request Body:', JSON.stringify(questionBody));
 
         try {
             const response = await fetch('https://fk7zu3f4gj.execute-api.eu-north-1.amazonaws.com/quiz/question', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(questionBody)
             });
             console.log(response);
             if (!response.ok) {
-                console.error('Error in POST request');
+                const errorData = await response.text(); // Use text() to ensure you get the raw response body
+                console.error('Error in POST request:', errorData);
                 return;
             }
             const data = await response.json();
@@ -64,7 +86,7 @@ function AddQuestions() {
                 <button type='submit'>Save</button>
             </form>
             <article className='mapContainer'>
-                <Leaflet setPosition={setPosition}/> 
+                <Leaflet setPosition={setPosition} />
             </article>
 
         </main>
