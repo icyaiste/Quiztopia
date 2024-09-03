@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import Leaflet from '../../components/Leaflet';
+import Leaflet from '../../components/map/Leaflet';
 
 
 function AddQuestions() {
