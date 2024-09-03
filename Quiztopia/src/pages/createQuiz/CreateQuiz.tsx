@@ -29,12 +29,11 @@ function CreateQuiz() {
                 body: JSON.stringify(requestBody)
             });
             const data = await response.json();
-            navigate('/addquestions');// Redirect to add questions page after successful quiz creation
+            navigate('/addquestions', {state: {quizName}});
 
             if (response.ok) {
                 if (data.success) {
                     setSuccess(`Quiz created successfully! Quiz ID: ${data.quizId}`);
-                    setError(null); // Clear any previous error
                     console.log('Quiz created successfully:', data);
                 } else {
                     setError('Failed to create quiz. Please try again later.');

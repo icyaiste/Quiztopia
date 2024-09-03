@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import Leaflet from '../../components/map/Leaflet';
+import { useLocation, useNavigate } from 'react-router-dom';
 
+const BAS_URL = 'https://fk7zu3f4gj.execute-api.eu-north-1.amazonaws.com'
 
 interface Position {
     latitude: number;
@@ -11,11 +13,24 @@ interface AddQuestionsProps {
     quizName: string;
 }
 
-function AddQuestions({quizName}: AddQuestionsProps) {
+function AddQuestions() {
+
+    const location = useLocation();
+    // const navigate = useNavigate();
+
+    // Check if location.state is defined and has quizName
+    const quizName = location.state?.quizName as AddQuestionsProps;
+
+    // useEffect(() => {
+    //     if (!quizName) {
+    //         console.error('Quiz name is invalid or empty.');
+    //         navigate('/createquiz'); // Redirect back to CreateQuiz if quizName is missing
+    //     }
+    // }, [quizName, navigate]);
+
     const [position, setPosition] = useState<Position | undefined>();
     const [question, setQuestion] = useState<string>('');
     const [answer, setAnswer] = useState<string>('');
-
 
     useEffect(() => {
         if ('geolocation' in navigator && !position) {
@@ -36,27 +51,25 @@ function AddQuestions({quizName}: AddQuestionsProps) {
             return;
         }
 
-        const token = sessionStorage.getItem('token');
-        if (!token) {
-            console.log('No token found in sessionStorage');
-            return;
-        }
-
-        console.log('Token:', token); // Debugging line to check token
-
         const questionBody = {
-            name:quizName,
+            name: quizName,
             question: question,
             answer: answer,
             location: {
-                longitude: position.longitude,
-                latitude: position.latitude
+                longitude: position.longitude.toString(),
+                latitude: position.latitude.toString()
             }
         };
         console.log('Request Body:', JSON.stringify(questionBody));
 
         try {
-            const response = await fetch('https://fk7zu3f4gj.execute-api.eu-north-1.amazonaws.com/quiz/question', {
+            const token = sessionStorage.getItem('token');
+            if (!token) {
+                console.log('No token found in sessionStorage');
+                return;
+            }
+            console.log('Token:', token); // Debugging line to check token
+            const response = await fetch(`${BAS_URL}/quiz/question`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
