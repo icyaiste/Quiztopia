@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Leaflet from '../../components/map/Leaflet';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 const BAS_URL = 'https://fk7zu3f4gj.execute-api.eu-north-1.amazonaws.com'
 
@@ -14,19 +14,9 @@ interface AddQuestionsProps {
 }
 
 function AddQuestions() {
-
     const location = useLocation();
-    // const navigate = useNavigate();
-
     // Check if location.state is defined and has quizName
     const quizName = location.state?.quizName as AddQuestionsProps;
-
-    // useEffect(() => {
-    //     if (!quizName) {
-    //         console.error('Quiz name is invalid or empty.');
-    //         navigate('/createquiz'); // Redirect back to CreateQuiz if quizName is missing
-    //     }
-    // }, [quizName, navigate]);
 
     const [position, setPosition] = useState<Position | undefined>();
     const [question, setQuestion] = useState<string>('');
@@ -90,9 +80,9 @@ function AddQuestions() {
         }
     };
 
-
     return (
         <main>
+            <button type='button'>Go back Home</button>
             <form onSubmit={submitQuestion}>
                 <input type='text' placeholder='Question' value={question} onChange={(event) => setQuestion(event.target.value)} />
                 <input type='text' placeholder='Answer' value={answer} onChange={(event) => setAnswer(event.target.value)} />

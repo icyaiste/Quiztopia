@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import React from "react";
-
+import AllQuizzes from "../../components/allQuizzes/AllQuizzes";
 
 interface UserData {
     username: string;
@@ -60,6 +60,7 @@ function CreateAccount() {
                 <button type="submit">Create Account</button>
             </form>
             <button type='button' onClick={() => navigate('/login')}>Or press here to login if you already have an account</button>
+            <AllQuizzes />
         </div>
     )
 }
