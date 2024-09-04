@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './AllQuizzes.css';
 
 const BAS_URL = 'https://fk7zu3f4gj.execute-api.eu-north-1.amazonaws.com';
 
@@ -14,6 +15,7 @@ interface Quiz {
     }[];
     userId: string;
     quizId: string;
+    username: string;
 }
 
 function AllQuizzes() {
@@ -52,15 +54,12 @@ function AllQuizzes() {
         return (
             <main className='containerForAllQuizzes'>
                 {quizzes.map((quiz) => (
-                    <article onClick={() => handleQuizClick(quiz.userId, quiz.quizId)} key={quiz.quizId}>
-                        <h2>Quiz ID: {quiz.quizId}</h2>
-                        <p>User ID: {quiz.userId}</p>
+                    <article className='quiz' onClick={() => handleQuizClick(quiz.userId, quiz.quizId)} key={quiz.quizId}>
+                        <p className='username'>Username: {quiz.username}</p>
+                        <p>Quiz ID: {quiz.quizId}</p>
                         <section>
                             {quiz.questions.map((question, index) => (
                                 <p key={`${quiz.quizId}-${index}`}>
-                                    <p>Question: {question.question}</p>
-                                    <p>Answer: {question.answer}</p>
-                                    <p>Location: ({question.location.latitude}, {question.location.longitude})</p>
                                 </p>
                             ))}
                         </section>
@@ -72,7 +71,7 @@ function AllQuizzes() {
 
     return (
         <main>
-            <h1>Here can you find all quizzes</h1>
+            <h2>Here can you find all quizzes</h2>
             {RenderQuizzes()}
         </main>
     )

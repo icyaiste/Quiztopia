@@ -1,0 +1,50 @@
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #5f1c52;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
+}
+
+label{
+    font-family: monospace;
+    font-size: 1.3em;
+    color: rgb(214, 213, 213);
+    margin: 10px;
+}
+
+input{
+    background-color: rgb(214, 213, 213);
+    border-radius: 10px;
+    margin-left: 10px;
+    color: black;
+}
+
+.createAcc, .Login{
+    background-color:rgb(214, 213, 213);
+    width: 150px;
+    padding: 8px;
+    color: black;
+    font-family: Tahoma;
+    font-weight: 600;
+    font-size: 16px;
+    border-radius: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+    border: none;
+}
+
+.Login{
+    width: 80px;
+}
+

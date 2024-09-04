@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import Leaflet from '../../components/map/Leaflet';
 import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import './AddQuestions.css';
 
 const BAS_URL = 'https://fk7zu3f4gj.execute-api.eu-north-1.amazonaws.com'
 
@@ -17,6 +19,7 @@ function AddQuestions() {
     const location = useLocation();
     // Check if location.state is defined and has quizName
     const quizName = location.state?.quizName as AddQuestionsProps;
+    const navigate = useNavigate();
 
     const [position, setPosition] = useState<Position | undefined>();
     const [question, setQuestion] = useState<string>('');
@@ -80,13 +83,17 @@ function AddQuestions() {
         }
     };
 
+    const goBack = () => {
+        navigate('/all');
+    }
+
     return (
-        <main>
-            <button type='button'>Go back Home</button>
-            <form onSubmit={submitQuestion}>
-                <input type='text' placeholder='Question' value={question} onChange={(event) => setQuestion(event.target.value)} />
-                <input type='text' placeholder='Answer' value={answer} onChange={(event) => setAnswer(event.target.value)} />
-                <button type='submit'>Save</button>
+        <main className='wrap'>
+            <button className='goBack' onClick={goBack} type='button'>Home</button>
+            <form className='questions' onSubmit={submitQuestion}>
+                <input className='input' type='text' placeholder='Question' value={question} onChange={(event) => setQuestion(event.target.value)} />
+                <input className='input' type='text' placeholder='Answer' value={answer} onChange={(event) => setAnswer(event.target.value)} />
+                <button className='savebtn' type='submit'>Save</button>
             </form>
             <article className='mapContainer'>
                 <Leaflet setPosition={setPosition} />

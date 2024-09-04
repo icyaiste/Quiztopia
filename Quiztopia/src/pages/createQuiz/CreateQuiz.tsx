@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './CreateQuiz.css';
 
 function CreateQuiz() {
     const [quizName, setQuizName] = useState<string>('');
@@ -49,8 +50,13 @@ function CreateQuiz() {
             console.error('Error creating quiz:', error);
         }
     }
+
+    const seeAllQuizzes = () => {
+        navigate('/all');
+    }
+
     return (
-        <div>
+        <main>
             <h2>Create a New Quiz</h2>
             <form onSubmit={handleCreateQuiz}>
                 <label>
@@ -62,10 +68,11 @@ function CreateQuiz() {
                         required
                     />
                 </label>
-                <button type="submit">Create Quiz</button>
+                <button className='CreateQuiz' type="submit">Create Quiz</button>
             </form>
-            <button type='button' onClick={() => navigate('/login')}>Log in with another account</button>
-        </div>
+            <button className='Login2' type='button' onClick={() => navigate('/login')}>Log in with another account</button>
+           <button className='allQuizzes' onClick={seeAllQuizzes} type='button'>See all quizzes</button>
+        </main>
     )
 }
 

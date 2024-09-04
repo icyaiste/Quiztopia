@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import React from "react";
 import AllQuizzes from "../../components/allQuizzes/AllQuizzes";
+import './CreateAccount.css';
 
 interface UserData {
     username: string;
@@ -39,7 +40,7 @@ function CreateAccount() {
 
     }
     return (
-        <div>
+        <main>
             <form onSubmit={SubmitForm}>
                 <label>
                     Username:
@@ -57,11 +58,11 @@ function CreateAccount() {
                         onChange={(event) => { setPassword(event.target.value) }}
                     ></input>
                 </label>
-                <button type="submit">Create Account</button>
+                <button className="createAcc" type="submit">Create Account</button>
             </form>
-            <button type='button' onClick={() => navigate('/login')}>Or press here to login if you already have an account</button>
-            <AllQuizzes />
-        </div>
+            <p>Already have an account?</p>
+            <button className="Login" type='button' onClick={() => navigate('/login')}>Login</button>
+        </main>
     )
 }
 

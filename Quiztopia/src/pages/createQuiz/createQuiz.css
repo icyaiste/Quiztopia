@@ -1,0 +1,36 @@
+.CreateQuiz,
+.Login2 {
+    background-color: rgb(214, 213, 213);
+    width: 150px;
+    padding: 8px;
+    color: black;
+    font-family: Tahoma;
+    font-weight: 600;
+    font-size: 16px;
+    border-radius: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+    border: none;
+}
+
+.Login2 {
+    margin-top: 30px;
+    margin-bottom: 15px;
+    width: 250px;
+    background-color: #5f1c52;
+    color: white;
+    font-weight: 500;
+    font-family: inherit;
+}
+
+.allQuizzes {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #5f1c52;
+    padding: 8px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    width: 250px;
+}

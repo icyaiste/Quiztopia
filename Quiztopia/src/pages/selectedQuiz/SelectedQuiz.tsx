@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import leaflet from "leaflet";
 import "./selectedQuiz.css";
+import { useNavigate } from "react-router-dom";
 
 const BAS_URL = 'https://fk7zu3f4gj.execute-api.eu-north-1.amazonaws.com';
 
@@ -30,7 +31,7 @@ function SelectedQuiz() {
     const [quiz, setQuiz] = useState<Quiz | null>(null);
     const { userId, quizId } = location.state as LocationState;
     const mapRef = useRef<leaflet.Map | null>(null); // Ref to store the map instance
-
+    const navigate = useNavigate();
 
     const fetchSelectedQuiz = async () => {
         try {
@@ -82,25 +83,51 @@ function SelectedQuiz() {
             }
         }
 
-            // Cleanup map on unmount
-            return () => {
-                if (mapRef.current) {
-                    mapRef.current.remove();
-                    mapRef.current = null; // Reset the ref
-                }
-            };
-        }, [quiz]);
+        // Cleanup map on unmount
+        return () => {
+            if (mapRef.current) {
+                mapRef.current.remove();
+                mapRef.current = null; // Reset the ref
+            }
+        };
+    }, [quiz]);
 
     if (!quiz) {
         return <p>Loading...</p>;
     }
 
+    const goBack = () => {
+        navigate('/all');
+    }
+
+    const deleteQuiz = async () => {
+        try {
+            const response = await fetch(`${BAS_URL}/quiz/${quizId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
+                },
+            });
+            if (!response.ok) {
+                console.log('Something wrong with response');
+                return;
+            }
+            const data = await response.json();
+            if (data.success) {
+                navigate('/all');
+            }
+        } catch (error) {
+            console.log();
+        }
+    };
 
     return (
         <div>
+            <button className="goHome" onClick={goBack} type="button">Go back to all quizzes</button>
             <h1>Quiz ID: {quiz.quizId}</h1>
             <div id="thisMap" />
-        </div>
+            <button onClick={deleteQuiz} className="deletebtn" type="button" >Delete this quiz</button>
+        </div >
     );
 }
 export default SelectedQuiz
