@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './AllQuizzes.css';
+import './allQuizzes.css';
 
 const BAS_URL = 'https://fk7zu3f4gj.execute-api.eu-north-1.amazonaws.com';
 
