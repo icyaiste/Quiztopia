@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './CreateQuiz.css';
+import './createQuiz.css';
 
 function CreateQuiz() {
   const [quizName, setQuizName] = useState<string>('');
