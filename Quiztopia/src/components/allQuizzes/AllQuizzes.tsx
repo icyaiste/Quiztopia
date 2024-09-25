@@ -58,7 +58,7 @@ function AllQuizzes() {
                         <p className='username'>Username: {quiz.username}</p>
                         <p>Quiz ID: {quiz.quizId}</p>
                         <section>
-                            {quiz.questions.map((question, index) => (
+                            {quiz.questions.map(( index) => (
                                 <p key={`${quiz.quizId}-${index}`}>
                                 </p>
                             ))}

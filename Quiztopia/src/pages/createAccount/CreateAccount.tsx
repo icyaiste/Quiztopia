@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import React from "react";
-import AllQuizzes from "../../components/allQuizzes/AllQuizzes";
 import './CreateAccount.css';
 
 interface UserData {

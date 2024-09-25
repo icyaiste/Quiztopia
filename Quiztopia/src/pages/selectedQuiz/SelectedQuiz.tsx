@@ -50,7 +50,7 @@ function SelectedQuiz() {
             const data = await response.json();
             setQuiz(data.quiz);
         } catch (error) {
-            console.log('Failed to fetch quiz');
+            console.log('Failed to fetch quiz', error);
         }
     };
     useEffect(() => {
@@ -76,7 +76,7 @@ function SelectedQuiz() {
             if (mapRef.current) {
                 quiz.questions.forEach((question) => {
                     leaflet.marker([question.location.latitude, question.location.longitude])
-                        .addTo(mapRef.current)
+                        .addTo(mapRef.current!)
                         .bindPopup(question.question)
                         .openPopup();
                 });
@@ -117,7 +117,7 @@ function SelectedQuiz() {
                 navigate('/all');
             }
         } catch (error) {
-            console.log();
+            console.log(error);
         }
     };
 
